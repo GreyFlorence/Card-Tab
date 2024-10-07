@@ -12,7 +12,7 @@ const HTML_CONTENT = `
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #d8eac4;
+        background-color: #ffffff;
         transition: background-color 0.3s ease;
     }
     
@@ -22,7 +22,7 @@ const HTML_CONTENT = `
         top: 0;
         left: 0;
         right: 0;
-        background-color: #d8eac4;
+        background-color: #ffffff;
         z-index: 1000;
         padding: 10px;
         transition: background-color 0.3s ease;
@@ -119,21 +119,6 @@ const HTML_CONTENT = `
         cursor: pointer;
     }
     
-    /* 搜索引擎按钮样式 */
-    .search-engines {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-    
-    .search-engine {
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        background-color: #f0f0;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    
     /* 主题切换按钮样式 */
     #theme-toggle {
         position: fixed;
@@ -217,7 +202,7 @@ const HTML_CONTENT = `
     }
     
     .card {
-        background-color: #a0c9e5;
+        background-color: #1DB954;
         border-radius: 5px;
         padding: 10px;
         width: 150px;
@@ -288,35 +273,6 @@ const HTML_CONTENT = `
         display: none;
     }
     
-    /* 版权信息样式 */
-    #copyright {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 40px;
-        background-color: rgba(255, 255, 255, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 14px;
-        z-index: 1000;
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    #copyright p {
-        margin: 0;
-    }
-    
-    #copyright a {
-        color: #007bff;
-        text-decoration: none;
-    }
-    
-    #copyright a:hover {
-        text-decoration: underline;
-    }
-    
     /* 响应式设计 */
     @media (max-width: 480px) {
         .fixed-elements {
@@ -379,23 +335,6 @@ const HTML_CONTENT = `
     <div class="fixed-elements">
         <h3>我的导航</h3>
         <div class="center-content">
-            <!-- 一言模块 -->
-            <p id="hitokoto">
-                <a href="#" id="hitokoto_text"></a>
-            </p>
-            <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script>
-            <!-- 搜索栏 -->
-            <div class="search-container">
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="">
-                    <button id="search-button">🔍</button>
-                </div>
-                <div class="search-engines">
-                    <button class="search-engine" data-engine="baidu">百度</button>
-                    <button class="search-engine" data-engine="bing">必应</button>
-                    <button class="search-engine" data-engine="google">谷歌</button>
-                </div>
-            </div>
         </div>
         <!-- 管理员控制面板 -->
         <div class="admin-controls">
@@ -437,23 +376,8 @@ const HTML_CONTENT = `
                 <button onclick="hideAddDialog()">取消</button>
             </div>
         </div>
-        <!-- 版权信息 -->
-        <div id="copyright" class="copyright">
-            <!--请不要删除-->
-            <p>项目地址：<a href="https://github.com/hmhm2022/Card-Tab" target="_blank">GitHub</a> 如果喜欢，烦请点个star！</p>
-        </div>
     </div>
 
-    <script>
-    // 搜索引擎配置
-    const searchEngines = {
-        baidu: "https://www.baidu.com/s?wd=",
-        bing: "https://www.bing.com/search?q=",
-        google: "https://www.google.com/search?q="
-    };
-    
-    let currentEngine = "baidu";
-    
     // 日志记录函数
     function logAction(action, details) {
         const timestamp = new Date().toISOString();
@@ -478,40 +402,7 @@ const HTML_CONTENT = `
         logs.forEach(log => console.log(log));
         alert('日志已在控制台输出，请按F12打开开发者工具查看。');
     }
-    
-    // 设置当前搜索引擎
-    function setActiveEngine(engine) {
-        currentEngine = engine;
-        document.querySelectorAll('.search-engine').forEach(btn => {
-            btn.style.backgroundColor = btn.dataset.engine === engine ? '#c0c0c0' : '#f0f0f0';
-        });
-        logAction('设置搜索引擎', { engine });
-    }
-    
-    // 搜索引擎按钮点击事件
-    document.querySelectorAll('.search-engine').forEach(button => {
-        button.addEventListener('click', () => setActiveEngine(button.dataset.engine));
-    });
-    
-    // 搜索按钮点击事件
-    document.getElementById('search-button').addEventListener('click', () => {
-        const query = document.getElementById('search-input').value;
-        if (query) {
-            logAction('执行搜索', { engine: currentEngine, query });
-            window.open(searchEngines[currentEngine] + encodeURIComponent(query), '_blank');
-        }
-    });
-    
-    // 搜索输入框回车事件
-    document.getElementById('search-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            document.getElementById('search-button').click();
-        }
-    });
-    
-    // 初始化搜索引擎
-    setActiveEngine(currentEngine);
-    
+
     // 全局变量
     let publicLinks = [];
     let privateLinks = [];
